@@ -1,0 +1,140 @@
+.work-place-widget-main{
+    flex-wrap: wrap;
+    overflow-y: auto;
+}
+
+.top-left-setting{
+    position: absolute;
+    top: 10%;
+    left: 22%;
+    z-index: 9000;
+    display: flex;
+    width: 20%;
+    height: 20%;
+    min-width: 100px;
+}
+
+.top-left{
+    position: absolute;
+    top: 10%;
+    left: 2%;
+    z-index: 9000;
+    display: flex;
+    width: 20%;
+    height: 20%;
+    min-width: 100px;
+}
+
+.top-center{
+    position: absolute;
+    top: 10%;
+    left: 50%;
+    min-width: 100px;
+    z-index: 9000;
+    display: flex;
+    width: 20%;
+    height: 10%;
+}
+
+.top-right{
+    position: absolute;
+    top: 10%;
+    right: 2%;
+    min-width: 100px;
+    z-index: 9000;
+    display: flex;
+    width: 20%;
+    height: 20%;
+}
+
+.center-left-setting{
+    position: absolute;
+    left: 22%;
+    z-index: 9000;
+    display: flex;
+    width: 20%;
+    height: 40%;
+    min-width: 100px;
+}
+
+.center-left{
+    position: absolute;
+    left: 2%;
+    z-index: 9000;
+    display: flex;
+    width: 20%;
+    height: 40%;
+    min-width: 100px;
+}
+
+.center-right{
+    position: absolute;
+    right: 2%;
+    min-width: 100px;
+    z-index: 9000;
+    display: flex;
+    width: 20%;
+    height: 40%;
+}
+
+.bottom-left-setting{
+    position: absolute;
+    left: 22%;
+    bottom: 2%;
+    z-index: 9000;
+    display: flex;
+    width: 20%;
+    height: 20%;
+    min-width: 100px;
+}
+
+.bottom-left{
+    position: absolute;
+    left: 2%;
+    bottom: 2%;
+    z-index: 9000;
+    display: flex;
+    width: 20%;
+    height: 20%;
+    min-width: 100px;
+}
+
+.bottom-center{
+    position: absolute;
+    bottom: 2%;
+    left: 50%;
+    min-width: 100px;
+    z-index: 9000;
+    display: flex;
+    width: 20%;
+    height: 10%;
+}
+
+.bottom-right{
+    position: absolute;
+    bottom: 2%;
+    right: 2%;
+    min-width: 100px;
+    z-index: 9000;
+    display: flex;
+    width: 20%;
+    height: 20%;
+}
+
+.button-next{
+    width: 15px;
+    height: 20px;
+    background-color: transparent;
+    border: none;
+    background-position: center;
+    background-repeat:no-repeat;
+    position: relative;
+    top: 50%;
+    right: 6px;
+    background-image: url("../../assets/next.png");
+}
+
+.button-next:hover{
+    background-color: gainsboro;
+    border-radius: 5px;
+}

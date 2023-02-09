@@ -1,0 +1,41 @@
+.widget-work{
+    display: flex;
+    cursor: pointer;
+}
+
+.widget-work-settings{
+    cursor: grab;
+}
+
+.widget-work-settings:hover{
+    transition-delay: 0.5s;
+    padding: 30px;
+    background-clip: content-box;
+    box-shadow: inset 0 0 0 30px #60d3fc;;
+    opacity: 0.33;
+    display: flex;
+}
+
+.widget-close{
+    display: none;
+}
+
+.widget-store{
+    border: 1px;
+    border-style: solid;
+    border-color: black;
+    margin: 10px;
+    cursor: grab;
+}
+
+.widget-store:hover{
+    transition-delay: 0.5s;
+    padding: 30px;
+    background-clip: content-box;
+    box-shadow: inset 0 0 0 30px #60d3fc;;
+    opacity: 0.33;
+}
+
+.off-frame{
+    pointer-events: none
+}

@@ -1,0 +1,59 @@
+.main{
+    text-align: center;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items:center;
+    height: 100%;
+    width: 100%;
+}
+
+.store-conteiner{
+    display: flex;
+    flex-direction: row;
+    width: 20%;
+    height: inherit;
+    padding: 0px 10px 0px 10px;
+}
+
+.work-conteiner{
+    display: flex;
+    flex-direction: column;
+    width: 80%;
+    height: inherit;
+}
+
+.work-conteiner-big{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: inherit;
+}
+
+.background-style{
+    display: block;
+    background-position: center;
+    background-image: url("../assets/plus.png");
+    background-repeat: no-repeat;
+    background-color: #60d3fc;
+    opacity: 0.33;
+}
+
+::-webkit-scrollbar {
+    width: 5px;
+}
+
+::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+}
+
+::-webkit-scrollbar-thumb {
+    cursor: pointer;
+    background-color: darkgrey;
+    outline: 1px solid slategrey;
+}
+
+input::-webkit-inner-spin-button,
+input::-webkit-outer-spin-button {
+    -webkit-appearance:none;
+}
