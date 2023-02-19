@@ -4,10 +4,17 @@ import WidgetComponent from "@/components/widget/WidgetComponent.vue";
 import {TypeWidget, Widget, WidgetUser} from "@/store/model";
 import {Inject} from "vue-property-decorator";
 import axios, {AxiosResponse} from "axios";
+import WidgetNew from "@/components/widgetNew/WidgetNew.vue";
+// @ts-ignore
+import resize from "vue-resize-directive";
 
 @Component({
     components: {
-        WidgetComponent
+        WidgetComponent,
+        WidgetNew
+    },
+    directives: {
+        resize
     }
 })
 export default class WorkPlace extends Vue {
@@ -18,6 +25,8 @@ export default class WorkPlace extends Vue {
     private widgetUser : Array<Widget> | undefined;
     @Inject("typeWidget")
     private typeWidget : Array<TypeWidget> | undefined;
+    private widthPercent : number | null = null;
+    private heightPercent : number | null = null;
 
 
 
@@ -25,6 +34,9 @@ export default class WorkPlace extends Vue {
     }
 
     mounted(){
+        const boundingClientRect = this.$el.getBoundingClientRect();
+        this.widthPercent = boundingClientRect.width/10
+        this.heightPercent = boundingClientRect.height/10
     }
 
     public onDrop(event : DragEvent, typeStr : String){

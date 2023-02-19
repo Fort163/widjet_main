@@ -1,0 +1,20 @@
+.not-resizable-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 5px;
+    overflow: hidden;
+    resize: both;
+    background-color: #c3c6e2;
+}
+
+.resizable-content {
+    position: sticky;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 5px;
+    overflow: hidden;
+    resize: both;
+    background-color: #C3E2CE;
+}

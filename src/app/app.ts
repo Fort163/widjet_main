@@ -10,9 +10,11 @@ import WorkPlace from "@/components/workPlace/WorkPlace.vue";
 import {Provide} from "vue-property-decorator";
 import {TypeWidget, Widget} from "@/store/model";
 import {FastWebWS} from "@/components/api/fastWebWS";
+import VueResizeObserver from "vue-resize-observer";
 
 Vue.use(Vuex);
 Vue.use(VueCookies);
+Vue.use(VueResizeObserver);
 @Component({
     components: {
         WidgetStore,

@@ -1,25 +1,15 @@
 <template>
-  <div class="main work-place-widget-main">
-    <div>
-      <h1>Тут какая то рабочая область</h1>
-      <h1>Тут какая то рабочая область</h1>
-      <h1>Тут какая то рабочая область</h1>
-      <h1>Тут какая то рабочая область</h1>
-      <h1>Тут какая то рабочая область</h1>
-      <h1>Тут какая то рабочая область</h1>
-      <h1>Тут какая то рабочая область</h1>
-      <h1>Тут какая то рабочая область</h1>
-      <h1>Тут какая то рабочая область</h1>
-      <h1>Тут какая то рабочая область</h1>
-      <h1>Тут какая то рабочая область</h1>
-      <h1>Тут какая то рабочая область</h1>
-      <h1>Тут какая то рабочая область</h1>
-      <h1>Тут какая то рабочая область</h1>
-      <h1>Тут какая то рабочая область</h1>
-      <h1>Тут какая то рабочая область</h1>
-      <h1>Тут какая то рабочая область</h1>
-    </div>
-    <div :class="[this.$store.getters.settings ? this.$store.getters.drag ? 'top-left-setting background-style' : 'top-left-setting':'top-left']"
+  <div class="work-place-widget-main"
+       @drop="onDrop($event,'top-left')"
+       @dragover.prevent
+       @dragenter.prevent>
+<!--      <WidgetNew :widthPercent="widthPercent" :heightPercent="heightPercent"/>
+      <WidgetNew :widthPercent="widthPercent" :heightPercent="heightPercent"/>
+      <WidgetNew :widthPercent="widthPercent" :heightPercent="heightPercent"/>
+      <WidgetNew :widthPercent="widthPercent" :heightPercent="heightPercent"/>
+      <WidgetNew :widthPercent="widthPercent" :heightPercent="heightPercent"/>
+      <WidgetNew :widthPercent="widthPercent" :heightPercent="heightPercent"/>-->
+   <div :class="[this.$store.getters.settings ? this.$store.getters.drag ? 'top-left-setting background-style' : 'top-left-setting':'top-left']"
          @drop="onDrop($event,'top-left')"
          @dragover.prevent
          @dragenter.prevent>
