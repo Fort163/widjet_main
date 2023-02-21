@@ -1,7 +1,6 @@
 .work-place-widget-main{
     display: flex;
-    flex-direction: row;
-
+    flex-direction: column;
     overflow-y: auto;
     width: 100%;
     height: 100%;

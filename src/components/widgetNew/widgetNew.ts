@@ -19,6 +19,8 @@ export default class WidgetNew extends Vue {
     private heightPercent : number | undefined;
     private width : number = 1
     private height : number = 1
+    private line : number = 1
+    private position : number = 1
     private style: String = new String();
 
     created(){

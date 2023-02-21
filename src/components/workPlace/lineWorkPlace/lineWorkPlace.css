@@ -1,0 +1,7 @@
+.line-main{
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    min-height: 10%;
+    overflow-y: auto;
+}

@@ -5,13 +5,13 @@ import {TypeWidget, Widget, WidgetUser} from "@/store/model";
 import {Inject} from "vue-property-decorator";
 import axios, {AxiosResponse} from "axios";
 import WidgetNew from "@/components/widgetNew/WidgetNew.vue";
-// @ts-ignore
 import resize from "vue-resize-directive";
+import LineWorkPlace from "@/components/workPlace/lineWorkPlace/LineWorkPlace.vue";
 
 @Component({
     components: {
         WidgetComponent,
-        WidgetNew
+        LineWorkPlace
     },
     directives: {
         resize
