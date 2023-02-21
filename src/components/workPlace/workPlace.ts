@@ -20,50 +20,59 @@ import LineWorkPlace from "@/components/workPlace/lineWorkPlace/LineWorkPlace.vu
 export default class WorkPlace extends Vue {
 
     @Inject("widgetStore")
-    private widgetStore : Array<Widget> | undefined;
+    private widgetStore: Array<Widget> | undefined;
     @Inject("widgetUser")
-    private widgetUser : Array<Widget> | undefined;
+    private widgetUser: Array<Widget> | undefined;
     @Inject("typeWidget")
-    private typeWidget : Array<TypeWidget> | undefined;
+    private typeWidget: Array<TypeWidget> | undefined;
 
+    private maxHeight = 10;
+    private heightStile = (this.maxHeight * 10) + '%';
 
-    created(){
+    created() {
 
     }
 
-    mounted(){
-        const v1 : WidgetNew = new WidgetNew()
-        console.log(this.$children.length)
-        this.$children.push(v1)
-        console.log(this.$children.length)
+    mounted() {
     }
 
-    public onDrop(event : DragEvent, typeStr : String){
+    public updateHeight() {
+        let maxHeight = 0;
+        (<Array<LineWorkPlace>>this.$children).forEach(item => {
+            maxHeight += item.getHeight();
+        })
+        if (maxHeight > 10) {
+            this.maxHeight = maxHeight;
+            this.heightStile = (this.maxHeight * 10) + '%'
+        }
+    }
+
+    public onDrop(event: DragEvent, typeStr: String) {
         const isStr = event.dataTransfer?.getData('itemID')
         const typeFilter = this.typeWidget?.filter((item) => {
-            if(item.name == typeStr){
+            if (item.name == typeStr) {
                 return item;
             }
         });
-        let type : TypeWidget = <TypeWidget>new Object();
-        if(typeFilter && typeFilter.length > 0){
+        let type: TypeWidget = <TypeWidget>new Object();
+        if (typeFilter && typeFilter.length > 0) {
             type = typeFilter[0]
         }
-        if(isStr){
+        if (isStr) {
             const id = Number.parseInt(isStr)
             console.log(id)
-            const find : Widget | undefined = this.widgetStore?.find((item =>{
-                if(item.id == id){
+            const find: Widget | undefined = this.widgetStore?.find((item => {
+                if (item.id == id) {
                     return item
                 }
             }));
-            if(find){
-                if(typeFilter && typeFilter.length > 0){
+            if (find) {
+                if (typeFilter && typeFilter.length > 0) {
                     find.type = typeFilter[0]
                 }
                 const index = this.widgetStore?.indexOf(find);
                 if (index != undefined && index > -1) {
-                    const widgetUser : WidgetUser = new class implements WidgetUser {
+                    const widgetUser: WidgetUser = new class implements WidgetUser {
 
                         height: string | undefined
                         id: number = -1
@@ -75,18 +84,18 @@ export default class WorkPlace extends Vue {
                         widget: Widget = <Widget>find
                         width: string | undefined
                     }
-                    axios.post<Widget>(process.env.VUE_APP_MAIN_WIDGET_URL+'/api/user_widgets',widgetUser)
+                    axios.post<Widget>(process.env.VUE_APP_MAIN_WIDGET_URL + '/api/user_widgets', widgetUser)
                         .then((response: AxiosResponse<Widget>) => {
                                 const filter = this.widgetUser?.filter((item, index) => {
-                                    if(item.type.name == response.data.type.name && item.show){
+                                    if (item.type.name == response.data.type.name && item.show) {
                                         return item;
                                     }
                                 });
-                                if(filter && filter.length > 0) {
+                                if (filter && filter.length > 0) {
                                     this.widgetUser?.forEach((item, index) => {
                                         if (item.type.name == response.data.type.name) {
                                             item.show = false
-                                            this.sendShow(item,false);
+                                            this.sendShow(item, false);
                                         }
                                     })
                                 }
@@ -97,30 +106,29 @@ export default class WorkPlace extends Vue {
                         .catch((error) => {
                             //this.loadMask(false);
                             console.log('Ошибка! Не могу связаться с API. ' + error);
-                        }).then((data)=>{
+                        }).then((data) => {
                     })
                 }
-            }
-            else {
-                const findUser : Widget | undefined = this.widgetUser?.find((item =>{
-                    if(item.id == id){
+            } else {
+                const findUser: Widget | undefined = this.widgetUser?.find((item => {
+                    if (item.id == id) {
                         return item
                     }
                 }));
-                if(findUser){
-                    const oldType : TypeWidget = findUser.type
+                if (findUser) {
+                    const oldType: TypeWidget = findUser.type
                     findUser.type = type
-                    axios.post<Widget>(process.env.VUE_APP_MAIN_WIDGET_URL+'/api/user_widgets',findUser)
+                    axios.post<Widget>(process.env.VUE_APP_MAIN_WIDGET_URL + '/api/user_widgets', findUser)
                         .then((response: AxiosResponse<Widget>) => {
                                 const filterOldType = this.widgetUser?.filter((item, index) => {
-                                    if(item.type.name == oldType.name && item.show){
+                                    if (item.type.name == oldType.name && item.show) {
                                         return item;
                                     }
                                 });
-                                if(filterOldType && filterOldType.length == 0){
+                                if (filterOldType && filterOldType.length == 0) {
                                     const skip = false;
                                     this.widgetUser?.forEach((item, index) => {
-                                        if(!skip) {
+                                        if (!skip) {
                                             if (item.type.name == oldType.name) {
                                                 item.show = true
                                                 this.sendShow(item, false);
@@ -129,20 +137,19 @@ export default class WorkPlace extends Vue {
                                     })
                                 }
                                 const filterNewType = this.widgetUser?.filter((item, index) => {
-                                    if(item.type.name == type.name && item.show){
+                                    if (item.type.name == type.name && item.show) {
                                         return item;
                                     }
                                 });
-                                if(filterNewType && filterNewType.length > 0) {
+                                if (filterNewType && filterNewType.length > 0) {
                                     this.widgetUser?.forEach((item, index) => {
-                                        if(findUser.id == item.id){
+                                        if (findUser.id == item.id) {
                                             item.show = true
-                                            this.sendShow(item,true);
-                                        }
-                                        else {
-                                            if(item.type.name == type.name) {
+                                            this.sendShow(item, true);
+                                        } else {
+                                            if (item.type.name == type.name) {
                                                 item.show = false
-                                                this.sendShow(item,false);
+                                                this.sendShow(item, false);
                                             }
                                         }
                                     })
@@ -152,7 +159,7 @@ export default class WorkPlace extends Vue {
                         .catch((error) => {
                             //this.loadMask(false);
                             console.log('Ошибка! Не могу связаться с API. ' + error);
-                        }).then((data)=>{
+                        }).then((data) => {
                     })
                 }
 
@@ -160,51 +167,48 @@ export default class WorkPlace extends Vue {
         }
     }
 
-    public checkCount(container : string) : number {
-        if(this.widgetUser) {
+    public checkCount(container: string): number {
+        if (this.widgetUser) {
             return this.widgetUser.filter((item, index) => {
                 if (item.type.name == container) {
                     return item;
                 }
             }).length
-        }
-        else {
+        } else {
             return -1;
         }
     }
 
-    public setShow(widget : Widget){
+    public setShow(widget: Widget) {
         let skip = false
         const indexOf = this.widgetUser?.indexOf(widget);
-        this.widgetUser?.forEach((item,index) => {
-            if(item.type.name == widget.type.name){
-                if(item.id == widget.id) {
+        this.widgetUser?.forEach((item, index) => {
+            if (item.type.name == widget.type.name) {
+                if (item.id == widget.id) {
                     item.show = false
-                    this.sendShow(item,false);
-                }
-                else {
-                    if(!skip) {
-                        if(indexOf != undefined && index > indexOf) {
+                    this.sendShow(item, false);
+                } else {
+                    if (!skip) {
+                        if (indexOf != undefined && index > indexOf) {
                             item.show = true
-                            this.sendShow(item,true);
+                            this.sendShow(item, true);
                             skip = true
                         }
                     }
                 }
             }
         })
-        if(!skip){
-            this.widgetUser?.forEach((item,index) => {
-                if(item.type.name == widget.type.name){
-                    if(item.id == widget.id) {
+        if (!skip) {
+            this.widgetUser?.forEach((item, index) => {
+                if (item.type.name == widget.type.name) {
+                    if (item.id == widget.id) {
                         item.show = false
-                        this.sendShow(item,false);
-                    }
-                    else {
-                        if(!skip) {
-                            if(indexOf != undefined && index != indexOf) {
+                        this.sendShow(item, false);
+                    } else {
+                        if (!skip) {
+                            if (indexOf != undefined && index != indexOf) {
                                 item.show = true
-                                this.sendShow(item,true);
+                                this.sendShow(item, true);
                                 skip = true
                             }
                         }
@@ -223,8 +227,8 @@ export default class WorkPlace extends Vue {
         }*/
     }
 
-    private sendShow(widget : Widget, show : boolean){
-        axios.patch(process.env.VUE_APP_MAIN_WIDGET_URL+'/api/user_widgets/'+widget.id,widget)
+    private sendShow(widget: Widget, show: boolean) {
+        axios.patch(process.env.VUE_APP_MAIN_WIDGET_URL + '/api/user_widgets/' + widget.id, widget)
             .then((response: any) => {
                     //this.loadMask(false);
                     return response.data;
@@ -233,7 +237,7 @@ export default class WorkPlace extends Vue {
             .catch((error) => {
                 //this.loadMask(false);
                 console.log('Ошибка! Не могу связаться с API. ' + error);
-            }).then((data)=>{
+            }).then((data) => {
         })
     }
 

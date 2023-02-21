@@ -13,7 +13,9 @@
         <button @click="onOffSettings()">настроить</button>
       </template>
       <template v-if="widgetUserDownload">
-        <WorkPlace/>
+        <div class="work-place">
+          <WorkPlace/>
+        </div>
       </template>
     </div>
   </div>

@@ -2,7 +2,8 @@
   <div class="work-place-widget-main"
        @drop="onDrop($event,'top-left')"
        @dragover.prevent
-       @dragenter.prevent>
+       @dragenter.prevent
+      :style="{height: this.heightStile}">
       <LineWorkPlace/>
       <LineWorkPlace/>
       <LineWorkPlace/>

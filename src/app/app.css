@@ -39,6 +39,13 @@
     opacity: 0.33;
 }
 
+.work-place{
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    height: inherit;
+    overflow-y: auto;
+}
 ::-webkit-scrollbar {
     width: 5px;
 }
