@@ -15,9 +15,7 @@ import {Inject, Prop} from "vue-property-decorator";
 export default class WidgetNew extends Vue {
 
     private prevRect : DOMRect | null = null;
-    @Prop({required:true})
     private widthPercent : number | undefined;
-    @Prop({required:true})
     private heightPercent : number | undefined;
     private width : number = 1
     private height : number = 1
@@ -33,10 +31,19 @@ export default class WidgetNew extends Vue {
     }
 
     public onResize(element : Element){
+        this.updatePercent(element)
         const currentRect : DOMRect = element.getBoundingClientRect();
         if(this.widthPercent && this.heightPercent){
             this.width = Math.round(currentRect.width/this.widthPercent)
             this.height = Math.round(currentRect.height/this.heightPercent)
+            if(this.width == 0){
+                this.width = 1
+            }
+            if(this.height == 0){
+                this.height = 1
+            }
+            console.log(currentRect.height)
+            console.log(this.height)
         }
         if(this.createStyle()!=element.getAttribute("style")){
             this.prevRect = null;
@@ -46,6 +53,15 @@ export default class WidgetNew extends Vue {
 
     public createStyle() : string{
         return "width : "+(this.width*10)+"%"+"; height : "+(this.height*10)+"%"+";"
+    }
+
+    public updatePercent(element : Element){
+        const parentElement = element.parentElement;
+        const boundingClientRect = parentElement?.getBoundingClientRect();
+        if(boundingClientRect){
+            this.widthPercent = boundingClientRect.width/10
+            this.heightPercent = boundingClientRect.height/10
+        }
     }
 
     get getWidth() : String{

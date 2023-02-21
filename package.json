@@ -11,6 +11,7 @@
     "@types/yandex-maps": "^2.1.14",
     "axios": "^0.21.1",
     "core-js": "^3.6.5",
+    "keycloak-js": "20.0.3",
     "scripts-dev": "^1.1.0",
     "sockjs-client": "^1.5.1",
     "vue": "^2.6.11",
@@ -18,11 +19,11 @@
     "vue-class-component": "^7.2.3",
     "vue-cookies": "^1.8.2",
     "vue-property-decorator": "^9.1.2",
+    "vue-resize-directive": "^1.2.0",
     "vue-resize-observer": "^2.0.16",
     "vue-yandex-maps": "^0.10.10",
     "vuex": "^3.6.2",
-    "webstomp-client": "^1.2.6",
-    "keycloak-js": "20.0.3"
+    "webstomp-client": "^1.2.6"
   },
   "devDependencies": {
     "@types/sockjs-client": "^1.5.0",

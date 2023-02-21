@@ -25,18 +25,17 @@ export default class WorkPlace extends Vue {
     private widgetUser : Array<Widget> | undefined;
     @Inject("typeWidget")
     private typeWidget : Array<TypeWidget> | undefined;
-    private widthPercent : number | null = null;
-    private heightPercent : number | null = null;
-
 
 
     created(){
+
     }
 
     mounted(){
-        const boundingClientRect = this.$el.getBoundingClientRect();
-        this.widthPercent = boundingClientRect.width/10
-        this.heightPercent = boundingClientRect.height/10
+        const v1 : WidgetNew = new WidgetNew()
+        console.log(this.$children.length)
+        this.$children.push(v1)
+        console.log(this.$children.length)
     }
 
     public onDrop(event : DragEvent, typeStr : String){

@@ -3,13 +3,13 @@
        @drop="onDrop($event,'top-left')"
        @dragover.prevent
        @dragenter.prevent>
-<!--      <WidgetNew :widthPercent="widthPercent" :heightPercent="heightPercent"/>
-      <WidgetNew :widthPercent="widthPercent" :heightPercent="heightPercent"/>
-      <WidgetNew :widthPercent="widthPercent" :heightPercent="heightPercent"/>
-      <WidgetNew :widthPercent="widthPercent" :heightPercent="heightPercent"/>
-      <WidgetNew :widthPercent="widthPercent" :heightPercent="heightPercent"/>
-      <WidgetNew :widthPercent="widthPercent" :heightPercent="heightPercent"/>-->
-   <div :class="[this.$store.getters.settings ? this.$store.getters.drag ? 'top-left-setting background-style' : 'top-left-setting':'top-left']"
+      <WidgetNew/>
+      <WidgetNew/>
+      <WidgetNew/>
+      <WidgetNew/>
+      <WidgetNew/>
+      <WidgetNew/>
+<!--   <div :class="[this.$store.getters.settings ? this.$store.getters.drag ? 'top-left-setting background-style' : 'top-left-setting':'top-left']"
          @drop="onDrop($event,'top-left')"
          @dragover.prevent
          @dragenter.prevent>
@@ -128,7 +128,7 @@
           </template>
         </template>
       </template>
-    </div>
+    </div>-->
   </div>
 </template>
 
