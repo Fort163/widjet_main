@@ -25,7 +25,7 @@ export default class WidgetStore extends Vue {
     }
 
     public onDrop(event : DragEvent, item : Widget){
-        const isStr = event.dataTransfer?.getData('itemID')
+        /*const isStr = event.dataTransfer?.getData('itemID')
         if(isStr){
             const id = Number.parseInt(isStr)
             const find : Widget | undefined = this.widgetUser?.find((item =>{
@@ -60,7 +60,7 @@ export default class WidgetStore extends Vue {
                     })
                 }
             }
-        }
+        }*/
     }
 
     private sendShow(widget : Widget, show : boolean){

@@ -16,5 +16,6 @@
     margin: 5px;
     overflow: hidden;
     resize: both;
+    z-index: 1000;
     background-color: #C3E2CE;
 }

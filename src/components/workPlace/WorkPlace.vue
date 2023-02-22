@@ -1,12 +1,8 @@
 <template>
-  <div class="work-place-widget-main"
-       @drop="onDrop($event,'top-left')"
-       @dragover.prevent
-       @dragenter.prevent
-      :style="{height: this.heightStile}">
-      <LineWorkPlace/>
-      <LineWorkPlace/>
-      <LineWorkPlace/>
+  <div class="work-place-widget-main" :style="{height: this.heightStile}">
+    <template v-for="line in this.$store.getters.lines">
+      <LineWorkPlace :line="line" :key="line"/>
+    </template>
 <!--   <div :class="[this.$store.getters.settings ? this.$store.getters.drag ? 'top-left-setting background-style' : 'top-left-setting':'top-left']"
          @drop="onDrop($event,'top-left')"
          @dragover.prevent

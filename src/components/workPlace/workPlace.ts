@@ -22,18 +22,25 @@ export default class WorkPlace extends Vue {
     @Inject("widgetStore")
     private widgetStore: Array<Widget> | undefined;
     @Inject("widgetUser")
-    private widgetUser: Array<Widget> | undefined;
+    private widgetUser: Array<WidgetUser> | undefined;
     @Inject("typeWidget")
     private typeWidget: Array<TypeWidget> | undefined;
 
     private maxHeight = 10;
     private heightStile = (this.maxHeight * 10) + '%';
+    private lines = new Array<number>()
 
     created() {
 
     }
 
     mounted() {
+        this.getLines()
+    }
+
+    public getLines(){
+        const lines = new Array<number>()
+
     }
 
     public updateHeight() {
@@ -48,7 +55,7 @@ export default class WorkPlace extends Vue {
     }
 
     public onDrop(event: DragEvent, typeStr: String) {
-        const isStr = event.dataTransfer?.getData('itemID')
+        /*const isStr = event.dataTransfer?.getData('itemID')
         const typeFilter = this.typeWidget?.filter((item) => {
             if (item.name == typeStr) {
                 return item;
@@ -76,8 +83,6 @@ export default class WorkPlace extends Vue {
 
                         height: string | undefined
                         id: number = -1
-                        positionX: string | undefined
-                        positionY: string | undefined
                         show: boolean = true
                         type: TypeWidget | undefined = find?.type
                         userID: string | undefined
@@ -164,10 +169,10 @@ export default class WorkPlace extends Vue {
                 }
 
             }
-        }
+        }*/
     }
 
-    public checkCount(container: string): number {
+    /*public checkCount(container: string): number {
         if (this.widgetUser) {
             return this.widgetUser.filter((item, index) => {
                 if (item.type.name == container) {
@@ -220,11 +225,11 @@ export default class WorkPlace extends Vue {
         this.widgetUser = new Array<Widget>()
         this.widgetUser = widgetUser
         //Нужно поправить чтоб не дергать каждый раз ссылку
-        /*const index = this.widgetStore?.indexOf(widget);
+        /!*const index = this.widgetStore?.indexOf(widget);
         if (index != undefined && index > -1) {
             this.widgetUser?.splice(index, 1);
             this.widgetUser?.push(widget)
-        }*/
+        }*!/
     }
 
     private sendShow(widget: Widget, show: boolean) {
@@ -239,6 +244,6 @@ export default class WorkPlace extends Vue {
                 console.log('Ошибка! Не могу связаться с API. ' + error);
             }).then((data) => {
         })
-    }
+    }*/
 
 }

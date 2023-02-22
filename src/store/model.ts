@@ -3,9 +3,11 @@ import WidgetComponent from "@/components/widget/widgetComponent";
 import {createStore} from "@/store/store";
 
 export interface State{
-    mask : MaskModel
+    mask : MaskModel;
     settings : boolean;
-    drag : boolean
+    drag : boolean;
+    widgetUser: Array<WidgetUser>;
+    widgetStore: Array<Widget>;
 }
 
 export interface ModalWindow{
@@ -35,22 +37,28 @@ export interface TypeWidget extends Entity{
 export interface Widget extends Entity{
     name : string
     url : string
-    defaultWidth : string
-    defaultHeight : string
     description : string
     actionUrl : string
     type : TypeWidget
-    show : boolean
-    widget : Widget
 }
 
 export interface WidgetUser extends Entity{
-    userID : string | undefined
-    widget : Widget
-    width : string | undefined
-    height : string | undefined
-    positionX : string | undefined
-    positionY : string | undefined
-    type : TypeWidget | undefined
-    show : boolean
+    userID : string
+    //widget : Widget
+    width : number
+    height : number
+    line : number
+    lineHeight : number
+    position : number
+}
+
+export class DropModel{
+    id : number
+    line : number
+    position : number
+    constructor(id : number, line : number,position : number) {
+        this.id = id
+        this.line = line
+        this.position = position
+    }
 }

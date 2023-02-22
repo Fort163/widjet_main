@@ -4,6 +4,7 @@ import Vue from "vue";
 import resize from "vue-resize-directive";
 import {Inject, Prop} from "vue-property-decorator";
 import LineWorkPlace from "@/components/workPlace/lineWorkPlace/lineWorkPlace";
+import {WidgetUser} from "@/store/model";
 
 @Component({
     components: {
@@ -15,60 +16,65 @@ import LineWorkPlace from "@/components/workPlace/lineWorkPlace/lineWorkPlace";
 })
 export default class WidgetNew extends Vue {
 
+    @Prop({required: true})
+    // @ts-ignore
+    private item : WidgetUser
+
     private prevRect : DOMRect | null = null;
     private widthPercent : number | undefined;
     private heightPercent : number | undefined;
-    private width : number = 1
-    private height : number = 5
-    private line : number = 1
-    private lineHeight : number = 1
-    private position : number = 1
+    /*private width : number | undefined;
+    private height : number | undefined;
+    private line : number | undefined;
+    private lineHeight : number | undefined;
+    private position : number | undefined;*/
     private style: String = new String();
 
     created(){
-
     }
 
     mounted(){
-        //this.onResize(this.$el)
-        this.style = "width : "+(this.width*10)+"%"+"; height : "+(this.height*10)+"%"+";";
+        this.style = "width : "+(this.item.width * 10)+"%"+"; height : "+(this.item.height*10)+"%"+";";
     }
 
     public onResize(element : Element){
         this.updatePercent(element)
         const currentRect : DOMRect = element.getBoundingClientRect();
         if(this.widthPercent && this.heightPercent){
-            this.width = Math.round(currentRect.width/this.widthPercent)
-            this.height = Math.round(currentRect.height/this.heightPercent)
-            if(this.width == 0){
-                this.width = 1
+            this.item.width = Math.round(currentRect.width/this.widthPercent)
+            this.item.height = Math.round(currentRect.height/this.heightPercent)
+            if(this.item.width == 0){
+                this.item.width = 1
             }
-            if(this.height == 0){
-                this.height = 1
+            if(this.item.height == 0){
+                this.item.height = 1
             }
         }
-        if(this.height > 10){
-            this.height = Math.floor(this.height / 2)
-            this.lineHeight +=1;
-            (<LineWorkPlace>this.$parent).setHeight(this.lineHeight);
+        if(this.item.height > 10){
+            this.item.height = Math.floor(this.item.height / 2)
+            this.item.lineHeight +=1;
+            (<LineWorkPlace>this.$parent).setHeight(this.item.lineHeight);
             (<Array<WidgetNew>>this.$parent.$children).forEach(item => {
-                item.lineHeight = this.lineHeight
+                item.item.lineHeight = this.item.lineHeight
             })
+            element.parentElement?.setAttribute("style",this.heightParent())
         }
         if(this.createStyle()!=element.getAttribute("style")){
             this.prevRect = null;
             element.setAttribute("style",this.createStyle())
-            element.parentElement?.setAttribute("style",this.heightParent())
+            if(!this.$store.getters.drag) {
+                element.parentElement?.setAttribute("style", this.heightParent())
+            }
         }
     }
 
     public createStyle() : string{
-        return "width : "+(this.width*10)+"%"+"; height : "+(this.height*10)+"%"+";"
+        return "width : "+(this.item.width*10)+"%"+"; height : "+(this.item.height*10)+"%"+";"
     }
 
 
     public heightParent() : string{
-        return "height : "+this.lineHeight*10+"%"+";"
+        return "height : "+this.item.lineHeight*10+"%"+";"
     }
 
     public updatePercent(element : Element){
@@ -81,18 +87,18 @@ export default class WidgetNew extends Vue {
     }
 
     get getWidth() : String{
-        return (this.width*10)+"%";
+        return (this.item.width*10)+"%";
     }
 
     get getHeight() : String{
-        return (this.height*10)+"%";
+        return (this.item.height*10)+"%";
     }
 
     public startDrag(event : DragEvent){
         if(event.dataTransfer != null) {
             event.dataTransfer.dropEffect = "move"
             event.dataTransfer.effectAllowed = "move"
-            event.dataTransfer.setData('itemID', 'this.id+')
+            event.dataTransfer.setData('itemID', this.item.id+'')
         }
         this.$store.commit('setDrag',true);
     }

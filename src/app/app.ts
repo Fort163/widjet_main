@@ -8,7 +8,7 @@ import axios from "axios";
 import WidgetStore from "@/components/widgetStore/WidgetStore.vue";
 import WorkPlace from "@/components/workPlace/WorkPlace.vue";
 import {Provide} from "vue-property-decorator";
-import {TypeWidget, Widget} from "@/store/model";
+import {TypeWidget, Widget, WidgetUser} from "@/store/model";
 import {FastWebWS} from "@/components/api/fastWebWS";
 import VueResizeObserver from "vue-resize-observer";
 
@@ -27,7 +27,7 @@ export default class App extends Vue {
     @Provide("widgetStore")
     private widgetStore : Array<Widget> = new Array<Widget>();
     @Provide("widgetUser")
-    private widgetUser : Array<Widget> = new Array<Widget>();
+    private widgetUser : Array<WidgetUser> = new Array<WidgetUser>();
     @Provide("typeWidget")
     private typeWidget : Array<TypeWidget> = new Array<TypeWidget>();
     @Provide('socket') mainSocket: FastWebWS = new FastWebWS("accessToken",this.$store);
@@ -86,7 +86,7 @@ export default class App extends Vue {
                 }))
             this.widgetStoreDownload = true
         })
-        axios.get(process.env.VUE_APP_MAIN_WIDGET_URL+'/api/user_widgets')
+        /*axios.get(process.env.VUE_APP_MAIN_WIDGET_URL+'/api/user_widgets')
             .then((response: any) => {
                     //this.loadMask(false);
                     return response.data;
@@ -95,12 +95,124 @@ export default class App extends Vue {
             .catch((error) => {
                 //this.loadMask(false);
                 console.log('Ошибка! Не могу связаться с API. ' + error);
-            }).then((data : Array<Widget>)=>{
+            }).then((data : Array<WidgetUser>)=>{
             data.forEach((item =>{
                 this.widgetUser.push(item)
             }))
             this.widgetUserDownload = true
-        })
+        })*/
+        const widget1 : WidgetUser = new class implements WidgetUser {
+            height: number = 10;
+            id: number = 1;
+            line: number = 1;
+            lineHeight: number = 2;
+            position: number = 2;
+            userID: string = "aaaaaa";
+            width: number = 2;
+        }
+        this.widgetUser.push(widget1)
+        const widget2 : WidgetUser = new class implements WidgetUser {
+            height: number = 10;
+            id: number = 2;
+            line: number = 2;
+            lineHeight: number = 1;
+            position: number = 1;
+            userID: string = "aaaaaa";
+            width: number = 2;
+        }
+        this.widgetUser.push(widget2)
+        const widget3 : WidgetUser = new class implements WidgetUser {
+            height: number = 10;
+            id: number = 3;
+            line: number = 1;
+            lineHeight: number = 2;
+            position: number = 1;
+            userID: string = "aaaaaa";
+            width: number = 1;
+        }
+        this.widgetUser.push(widget3)
+        const widget4 : WidgetUser = new class implements WidgetUser {
+            height: number = 15;
+            id: number = 4;
+            line: number = 3;
+            lineHeight: number = 2;
+            position: number = 3;
+            userID: string = "aaaaaa";
+            width: number = 4;
+        }
+        this.widgetUser.push(widget4)
+        const widget5 : WidgetUser = new class implements WidgetUser {
+            height: number = 10;
+            id: number = 5;
+            line: number = 3;
+            lineHeight: number = 3;
+            position: number = 4;
+            userID: string = "aaaaaa";
+            width: number = 2;
+        }
+        this.widgetUser.push(widget5)
+        const widget6 : WidgetUser = new class implements WidgetUser {
+            height: number = 10;
+            id: number = 6;
+            line: number = 1;
+            lineHeight: number = 2;
+            position: number = 4;
+            userID: string = "aaaaaa";
+            width: number = 4;
+        }
+        this.widgetUser.push(widget6)
+        /*const widget1 : WidgetUser = new class implements WidgetUser {
+            height: number = 10;
+            id: number = 1;
+            line: number = 1;
+            lineHeight: number = 2;
+            position: number = 2;
+            userID: string = "aaaaaa";
+            width: number = 2;
+        }
+        this.widgetUser.push(widget1)
+        const widget1 : WidgetUser = new class implements WidgetUser {
+            height: number = 10;
+            id: number = 1;
+            line: number = 1;
+            lineHeight: number = 2;
+            position: number = 2;
+            userID: string = "aaaaaa";
+            width: number = 2;
+        }
+        this.widgetUser.push(widget1)
+        const widget1 : WidgetUser = new class implements WidgetUser {
+            height: number = 10;
+            id: number = 1;
+            line: number = 1;
+            lineHeight: number = 2;
+            position: number = 2;
+            userID: string = "aaaaaa";
+            width: number = 2;
+        }
+        this.widgetUser.push(widget1)
+        const widget1 : WidgetUser = new class implements WidgetUser {
+            height: number = 10;
+            id: number = 1;
+            line: number = 1;
+            lineHeight: number = 2;
+            position: number = 2;
+            userID: string = "aaaaaa";
+            width: number = 2;
+        }
+        this.widgetUser.push(widget1)
+        const widget1 : WidgetUser = new class implements WidgetUser {
+            height: number = 10;
+            id: number = 1;
+            line: number = 1;
+            lineHeight: number = 2;
+            position: number = 2;
+            userID: string = "aaaaaa";
+            width: number = 2;
+        }
+        this.widgetUser.push(widget1)*/
+        this.$store.commit('setWidgetUser',this.widgetUser);
+        this.widgetUserDownload = true
     }
 
     mounted(){
