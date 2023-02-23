@@ -34,8 +34,10 @@
     display: block;
     background-position: center;
     background-image: url("../assets/plus.png");
+    background-size: 50%;
     background-repeat: no-repeat;
     background-color: #60d3fc;
+    margin: 2px;
     opacity: 0.33;
 }
 

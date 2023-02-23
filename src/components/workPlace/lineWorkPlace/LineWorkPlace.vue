@@ -1,5 +1,5 @@
 <template>
-  <div :class="'line-main'">
+  <div v-if="this.$store.getters.widgetByLine(this.line).length > 0" :class="'line-main'">
     <template v-for="item in this.$store.getters.widgetByLine(this.line)">
       <WidgetNew :item=item :key="item.id"/>
     </template>

@@ -43,13 +43,14 @@ export interface Widget extends Entity{
 }
 
 export interface WidgetUser extends Entity{
-    userID : string
+    userID : string | undefined
     //widget : Widget
     width : number
     height : number
     line : number
     lineHeight : number
     position : number
+    margin : number | undefined
 }
 
 export class DropModel{

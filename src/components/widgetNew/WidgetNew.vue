@@ -5,7 +5,9 @@
        draggable="true"
        @dragstart="startDrag($event)"
        @dragend="endDrag($event)">
-  H1 {{this.getHeight}} {{getWidth}}</div>
+    Id : {{this.item.id}} <br> {{this.getHeight}} {{this.getWidth}}
+    <br> position : {{this.item.position}}
+  </div>
 </template>
 <!--       v-resize:debounce.50="onResize"-->
 <script src="./widgetNew.ts"></script>

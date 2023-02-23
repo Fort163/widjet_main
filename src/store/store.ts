@@ -42,14 +42,18 @@ export function createStore() : Store<State>{
                 console.log("Set widgetUser " + value.length)
             },
             dropWidgetUser(state : State,model : DropModel) {
-                state.widgetUser = state.widgetUser.flatMap(item =>{
-                    if(item.id == model.id){
-                        item.line = model.line;
-                        item.position = model.position
-                    }
-                    return item;
-                })
-                console.log("dropWidgetUser id : " + model.id + " line : "+model.line + " position : "+model.position)
+               if(state.widgetUser.filter(item => item.id == model.id).length > 0){
+                   state.widgetUser.forEach(item =>{
+                       if(item.id == model.id){
+                           item.line = model.line;
+                           item.position = model.position
+                       }
+                       return item;
+                   })
+               }else {
+                   console.warn("Создать новую запись")
+               }
+               console.log("dropWidgetUser id : " + model.id + " line : "+model.line + " position : "+model.position)
             }
         },
         getters: {
@@ -60,7 +64,7 @@ export function createStore() : Store<State>{
                 return state.drag
             },
             widgetByLine : (state) => (line : number) =>{
-                return state.widgetUser.filter(item => item.line == line).sort((a, b) => {
+                const lineArray = state.widgetUser.filter(item => item.line == line).sort((a, b) => {
                     if(a.position > b.position){
                         return 1
                     }
@@ -69,6 +73,27 @@ export function createStore() : Store<State>{
                     }
                     return 0
                 })
+
+                lineArray.forEach(item => {
+                    const index = lineArray.indexOf(item)
+                    const prevItem = lineArray.slice(0,index)
+                    let width = item.position == 1 ? 1 : 0
+                    prevItem.forEach(prev => {
+                        width = prev.position + prev.width
+                    })
+                    item.margin =  item.position - width
+                })
+                return lineArray
+            },
+            emptyPosition: (state) => (line : number, position : number) => {
+                const positionNew = position
+                console.log("check")
+                state.widgetUser.forEach(item => {
+                    if(item.line == line && (item.position + item.width - 1) >= position){
+                        console.warn("занята элементом "+ item.id)
+                    }
+                })
+                return positionNew
             },
             lines : state => {
                 const array : number[] = []
@@ -78,7 +103,6 @@ export function createStore() : Store<State>{
                     }
                 })
                 array.push(Math.max(...array)+1)
-                console.log("lines : "+array)
                 return Math.max(...array);
             }
         }

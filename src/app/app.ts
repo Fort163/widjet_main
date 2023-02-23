@@ -81,10 +81,8 @@ export default class App extends Vue {
                 //this.loadMask(false);
                 console.log('Ошибка! Не могу связаться с API. ' + error);
             }).then((data : Array<Widget>)=>{
-                data.forEach((item =>{
-                    this.widgetStore.push(item)
-                }))
-            this.widgetStoreDownload = true
+                this.$store.commit('setSoreWidget',data);
+                this.widgetStoreDownload = true
         })
         /*axios.get(process.env.VUE_APP_MAIN_WIDGET_URL+'/api/user_widgets')
             .then((response: any) => {
@@ -102,16 +100,18 @@ export default class App extends Vue {
             this.widgetUserDownload = true
         })*/
         const widget1 : WidgetUser = new class implements WidgetUser {
+            margin: number | undefined;
             height: number = 10;
-            id: number = 1;
+            id: number = 15;
             line: number = 1;
             lineHeight: number = 2;
-            position: number = 2;
+            position: number = 3;
             userID: string = "aaaaaa";
             width: number = 2;
         }
         this.widgetUser.push(widget1)
         const widget2 : WidgetUser = new class implements WidgetUser {
+            margin: number | undefined;
             height: number = 10;
             id: number = 2;
             line: number = 2;
@@ -122,6 +122,7 @@ export default class App extends Vue {
         }
         this.widgetUser.push(widget2)
         const widget3 : WidgetUser = new class implements WidgetUser {
+            margin: number | undefined;
             height: number = 10;
             id: number = 3;
             line: number = 1;
@@ -132,6 +133,7 @@ export default class App extends Vue {
         }
         this.widgetUser.push(widget3)
         const widget4 : WidgetUser = new class implements WidgetUser {
+            margin: number | undefined;
             height: number = 15;
             id: number = 4;
             line: number = 3;
@@ -142,6 +144,7 @@ export default class App extends Vue {
         }
         this.widgetUser.push(widget4)
         const widget5 : WidgetUser = new class implements WidgetUser {
+            margin: number | undefined;
             height: number = 10;
             id: number = 5;
             line: number = 3;
@@ -152,11 +155,12 @@ export default class App extends Vue {
         }
         this.widgetUser.push(widget5)
         const widget6 : WidgetUser = new class implements WidgetUser {
+            margin: number | undefined;
             height: number = 10;
             id: number = 6;
             line: number = 1;
             lineHeight: number = 2;
-            position: number = 4;
+            position: number = 6;
             userID: string = "aaaaaa";
             width: number = 4;
         }

@@ -23,17 +23,13 @@ export default class WidgetNew extends Vue {
     private prevRect : DOMRect | null = null;
     private widthPercent : number | undefined;
     private heightPercent : number | undefined;
-    /*private width : number | undefined;
-    private height : number | undefined;
-    private line : number | undefined;
-    private lineHeight : number | undefined;
-    private position : number | undefined;*/
     private style: String = new String();
 
     created(){
     }
 
     mounted(){
+        (<LineWorkPlace>this.$parent).setHeight(this.item.lineHeight);
         this.style = "width : "+(this.item.width * 10)+"%"+"; height : "+(this.item.height*10)+"%"+";";
     }
 
@@ -49,6 +45,10 @@ export default class WidgetNew extends Vue {
             if(this.item.height == 0){
                 this.item.height = 1
             }
+        }
+        if(this.item.width + this.item.position > 11){
+            this.item.width = 11 - this.item.position
+            console.error(this.item.width)
         }
         if(this.item.height > 10){
             this.item.height = Math.floor(this.item.height / 2)
@@ -69,7 +69,9 @@ export default class WidgetNew extends Vue {
     }
 
     public createStyle() : string{
-        return "width : "+(this.item.width*10)+"%"+"; height : "+(this.item.height*10)+"%"+";"
+        return "width : "+(this.item.width*10)+"%"
+            +"; height : "+(this.item.height*10)+"%;"
+            +" margin-left: "+(this.item.margin ? this.item.margin < 0 ? 0 : this.item.margin*10 : 0)+"% ;"
     }
 
 
@@ -105,6 +107,7 @@ export default class WidgetNew extends Vue {
 
     public endDrag(event : DragEvent){
         this.$store.commit('setDrag',false);
+        this.$el.setAttribute("style",this.createStyle())
     }
 
 }

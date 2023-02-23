@@ -19,28 +19,13 @@ import LineWorkPlace from "@/components/workPlace/lineWorkPlace/LineWorkPlace.vu
 })
 export default class WorkPlace extends Vue {
 
-    @Inject("widgetStore")
-    private widgetStore: Array<Widget> | undefined;
-    @Inject("widgetUser")
-    private widgetUser: Array<WidgetUser> | undefined;
-    @Inject("typeWidget")
-    private typeWidget: Array<TypeWidget> | undefined;
-
     private maxHeight = 10;
     private heightStile = (this.maxHeight * 10) + '%';
-    private lines = new Array<number>()
 
     created() {
-
     }
 
     mounted() {
-        this.getLines()
-    }
-
-    public getLines(){
-        const lines = new Array<number>()
-
     }
 
     public updateHeight() {

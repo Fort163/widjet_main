@@ -42,6 +42,7 @@ export default class LineWorkPlace extends Vue {
         if (isStr && this.line) {
             const position = Number.parseInt(positionStr.replace('pos',''))
             const id = Number.parseInt(isStr)
+            this.$store.getters.emptyPosition(this.line,position)
             this.$store.commit("dropWidgetUser",new DropModel(id,this.line,position))
         }
     }
