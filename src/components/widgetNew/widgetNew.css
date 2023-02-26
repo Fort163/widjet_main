@@ -14,7 +14,28 @@
     justify-content: center;
     align-items: center;
     overflow: hidden;
-    resize: both;
     z-index: 1000;
     background-color: #C3E2CE;
+}
+
+.horizontal {
+    resize: horizontal;
+}
+
+.vertical {
+    resize: vertical;
+}
+
+.horizontal-button{
+    position: absolute;
+    top: 50%;
+    left: 95%;
+    cursor: e-resize;
+}
+
+.vertical-button{
+    position: absolute;
+    top: 90%;
+    left: 50%;
+    cursor: n-resize;
 }

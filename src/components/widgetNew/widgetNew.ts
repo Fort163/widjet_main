@@ -4,7 +4,7 @@ import Vue from "vue";
 import resize from "vue-resize-directive";
 import {Inject, Prop} from "vue-property-decorator";
 import LineWorkPlace from "@/components/workPlace/lineWorkPlace/lineWorkPlace";
-import {WidgetUser} from "@/store/model";
+import {DropModel, WidgetUser} from "@/store/model";
 
 @Component({
     components: {
@@ -20,17 +20,17 @@ export default class WidgetNew extends Vue {
     // @ts-ignore
     private item : WidgetUser
 
-    private prevRect : DOMRect | null = null;
     private widthPercent : number | undefined;
     private heightPercent : number | undefined;
-    private style: String = new String();
+    private vertical : boolean = false;
+    private horizontal : boolean = false;
+    private draggable : boolean = true;
 
     created(){
     }
 
     mounted(){
         (<LineWorkPlace>this.$parent).setHeight(this.item.lineHeight);
-        this.style = "width : "+(this.item.width * 10)+"%"+"; height : "+(this.item.height*10)+"%"+";";
     }
 
     public onResize(element : Element){
@@ -38,6 +38,14 @@ export default class WidgetNew extends Vue {
         const currentRect : DOMRect = element.getBoundingClientRect();
         if(this.widthPercent && this.heightPercent){
             this.item.width = Math.round(currentRect.width/this.widthPercent)
+            if(this.item.height > Math.round(currentRect.height/this.heightPercent)){
+                this.item.lineHeight -=1;
+                (<LineWorkPlace>this.$parent).setHeight(this.item.lineHeight);
+                (<Array<WidgetNew>>this.$parent.$children).forEach(item => {
+                    item.item.lineHeight = this.item.lineHeight
+                })
+                element.parentElement?.setAttribute("style",this.heightParent())
+            }
             this.item.height = Math.round(currentRect.height/this.heightPercent)
             if(this.item.width == 0){
                 this.item.width = 1
@@ -60,7 +68,6 @@ export default class WidgetNew extends Vue {
             element.parentElement?.setAttribute("style",this.heightParent())
         }
         if(this.createStyle()!=element.getAttribute("style")){
-            this.prevRect = null;
             element.setAttribute("style",this.createStyle())
             if(!this.$store.getters.drag) {
                 element.parentElement?.setAttribute("style", this.heightParent())
@@ -71,7 +78,6 @@ export default class WidgetNew extends Vue {
     public createStyle() : string{
         return "width : "+(this.item.width*10)+"%"
             +"; height : "+(this.item.height*10)+"%;"
-            +" margin-left: "+(this.item.margin ? this.item.margin < 0 ? 0 : this.item.margin*10 : 0)+"% ;"
     }
 
 
@@ -108,6 +114,42 @@ export default class WidgetNew extends Vue {
     public endDrag(event : DragEvent){
         this.$store.commit('setDrag',false);
         this.$el.setAttribute("style",this.createStyle())
+    }
+
+    //TODO если нужно сделать пляску элементов
+    public enterDrag(event : DragEvent){
+        /*this.item.position += 1
+        if (this.item.margin) {
+            this.item.margin += 1
+        }
+        this.$el.setAttribute("style", this.createStyle())*/
+    }
+
+    public setHorizontal(value : boolean){
+        this.horizontal = value
+    }
+
+    public setVertical(value : boolean){
+        console.log(value)
+        this.vertical = value
+    }
+
+    public mouseUp(event : MouseEvent){
+        console.log("mouseUp")
+    }
+
+    public mouseMove(event : MouseEvent){
+        this.draggable = false
+        console.log("mouseMove")
+    }
+
+    public mouseOut(event : MouseEvent){
+        this.draggable = true
+        console.log("mouseOut")
+    }
+
+    public mouseDown(event : MouseEvent){
+        console.log("mouseDown")
     }
 
 }

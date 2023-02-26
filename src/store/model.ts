@@ -42,15 +42,33 @@ export interface Widget extends Entity{
     type : TypeWidget
 }
 
-export interface WidgetUser extends Entity{
+export class WidgetUser implements Entity{
     userID : string | undefined
     //widget : Widget
+    id: number;
     width : number
     height : number
     line : number
     lineHeight : number
     position : number
-    margin : number | undefined
+
+    constructor(id: number, width : number, height : number, line : number, lineHeight : number, position : number) {
+        this.id = id
+        this.width = width
+        this.height = height
+        this.line = line
+        this.lineHeight = lineHeight
+        this.position = position
+    }
+
+    newPosition(position : number) : Position{
+        return new Position(position,position+this.width-1)
+    }
+
+    currentPosition() : Position{
+        return new Position(this.position,this.position+this.width-1)
+    }
+
 }
 
 export class DropModel{
@@ -62,4 +80,52 @@ export class DropModel{
         this.line = line
         this.position = position
     }
+}
+
+export class LineInfo{
+
+    private emptyPosition : Array<number>
+    private fillPosition : Array<Position>
+    constructor() {
+        this.emptyPosition = [1,2,3,4,5,6,7,8,9,10]
+        this.fillPosition =  new Array<Position>()
+    }
+
+    public addFillPosition(position : Position){
+        this.emptyPosition = this.emptyPosition.filter(item => position.start > item || item > position.end)
+        this.fillPosition.push(position)
+    }
+
+    public getFillPosition(){
+        return this.fillPosition
+    }
+
+    public getEmptyPosition(){
+        return this.emptyPosition
+    }
+
+}
+
+export class Position{
+    private _start : number
+    private _end : number
+    constructor(start : number,end : number) {
+        this._start = start
+        this._end = end
+    }
+
+    get positionArray() : Array<number>{
+        return Array.from(
+            { length: (this.end - this.start) + 1 },
+            (value, index) => this.start + index
+        )
+    }
+
+    get end(): number {
+        return this._end;
+    }
+    get start(): number {
+        return this._start;
+    }
+
 }

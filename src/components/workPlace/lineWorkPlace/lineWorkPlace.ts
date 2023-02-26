@@ -3,7 +3,7 @@ import Vue from "vue";
 import WidgetNew from "@/components/widgetNew/WidgetNew.vue";
 import resize from "vue-resize-directive";
 import WorkPlace from "@/components/workPlace/WorkPlace.vue";
-import {DropModel, Widget} from "@/store/model";
+import {DropModel, LineInfo, Widget} from "@/store/model";
 import {Prop} from "vue-property-decorator";
 
 @Component({
@@ -27,6 +27,14 @@ export default class LineWorkPlace extends Vue {
     mounted(){
     }
 
+    get lineInfo() : LineInfo {
+        return this.$store.getters.lineInfo(this.line)
+    }
+
+    get emptyPosition() : Array<number>{
+        return  this.lineInfo.getEmptyPosition()
+    }
+
     public setHeight(height : number){
         this.height = height;
         this.heightStile = (this.height * 10) + '%';
@@ -37,13 +45,12 @@ export default class LineWorkPlace extends Vue {
         return this.height
     }
 
-    public onDrop(event: DragEvent,positionStr : string) {
+    public onDrop(event: DragEvent,position : number) {
         const isStr = event.dataTransfer?.getData('itemID')
         if (isStr && this.line) {
-            const position = Number.parseInt(positionStr.replace('pos',''))
             const id = Number.parseInt(isStr)
-            this.$store.getters.emptyPosition(this.line,position)
-            this.$store.commit("dropWidgetUser",new DropModel(id,this.line,position))
+            this.$store.dispatch("dropWidgetUser", new DropModel(id, this.line, position))
+                .then(r => console.log(""))
         }
     }
 
