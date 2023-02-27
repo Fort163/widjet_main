@@ -59,7 +59,6 @@ export function createStore() : Store<State>{
                 return badPosition
             },
             shiftWidget(context,widgets : Array<WidgetUser>){
-                console.error(widgets)
                 const widgetsOld = context.getters.widgetUserByLineAndPosition(widgets[0].line,widgets[0].position + 1)
                 if(widgetsOld.length > 0) {
                     context.dispatch("shiftWidget", widgetsOld).then(result => {

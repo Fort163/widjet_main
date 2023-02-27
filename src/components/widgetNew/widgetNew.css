@@ -26,16 +26,37 @@
     resize: vertical;
 }
 
-.horizontal-button{
+.resize-button{
+    width: 20px;
+    height: 20px;
     position: absolute;
-    top: 50%;
-    left: 95%;
-    cursor: e-resize;
+    cursor: pointer;
+    display: block;
+    background-position: center;
+    background-image: url("../../assets/arrow.png");
+    background-size: 70%;
+    background-repeat: no-repeat;
+    background-color: white;
+    border: 1px solid dodgerblue;
+    border-radius: 50%;
 }
 
-.vertical-button{
-    position: absolute;
-    top: 90%;
-    left: 50%;
-    cursor: n-resize;
+.resize-left{
+    top: 50%;
+    left: 0%;
+    transform: rotate(90deg);
+}
+.resize-right{
+    top: 50%;
+    left: calc(100% - 25px);
+    transform: rotate(270deg);
+}
+.resize-top{
+    top: 0%;
+    left: calc(50% - 13px);
+    transform: rotate(180deg);
+}
+.resize-bottom{
+    top: calc(100% - 25px);
+    left: calc(50% - 13px);
 }

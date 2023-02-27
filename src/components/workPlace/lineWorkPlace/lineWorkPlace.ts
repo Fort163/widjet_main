@@ -36,6 +36,7 @@ export default class LineWorkPlace extends Vue {
     }
 
     public setHeight(height : number){
+        console.log("setHeight !!!!!!")
         this.height = height;
         this.heightStile = (this.height * 10) + '%';
         (<WorkPlace>this.$parent).updateHeight()
